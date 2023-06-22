@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/656730442.svg)](https://zenodo.org/badge/latestdoi/656730442)
+
+
 # e2e-slicing-in-a-box
 
 # Introduction
