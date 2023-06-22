@@ -4,7 +4,7 @@
 # e2e-slicing-in-a-box
 
 # Introduction
-End-to-End network slicing using ContainerNet, NS-3, DinD etc.
+End-to-End network slicing (RAN, Transport, Edge Cloud) using ContainerNet, NS-3, DinD, and UERANSIM.
 
 # Requirements
 Tested with **Ubuntu 18.04.** / **Ubuntu 20.04**
@@ -13,10 +13,11 @@ Tested with **Ubuntu 18.04.** / **Ubuntu 20.04**
 1. ContainerNet
 2. Ryu
 3. NS-3 mmWave
-4. python3 & pip
-5. Docker
+4. UERANSIM
+5. python3 & pip
+6. Docker
 
-# Installation:
+# Installation
 
 
-# How-to execute it:
+# How-to execute it
