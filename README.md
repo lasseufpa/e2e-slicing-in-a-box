@@ -13,7 +13,7 @@ Tested with **Ubuntu 18.04.**
 # Dependencies:
 1. ContainerNet
 2. Ryu
-3. NS-3 mmWave
+3. NS-3 
 4. UERANSIM
 5. python3 & pip
 6. Docker
@@ -23,7 +23,7 @@ Tested with **Ubuntu 18.04.**
 
 ## NS-3 
 
-To install the used NS-3 used version, just run the  `ns_install.sh` shell script as sudo:
+To install the NS-3 used version, just run the `ns_install.sh` shell script as sudo:
 
 ``` console
 sudo ./ns_install.sh
