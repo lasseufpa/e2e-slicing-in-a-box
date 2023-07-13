@@ -21,6 +21,16 @@ Tested with **Ubuntu 18.04.**
 
 # Installation
 
+## NS-3 
+
+To install the used NS-3 used version, just run the  `ns_install.sh` shell script as sudo:
+
+``` console
+sudo ./ns_install.sh
+```
+
+
+## Ryu and ContainerNet
 First, make sure you have python3 with pip installed.
 
 `install.py` will try to install all dependencies needed in a `tools/` folder. Everything should work, but if something goes wrong, you will need to install the dependencies that failed in `tools/` (or in the system).
