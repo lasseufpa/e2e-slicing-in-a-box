@@ -3,7 +3,7 @@
 source $HOME/.bashrc
 
 # set paths
-#SFLOW_DIR="$PWD/tools/sflow-rt"
+SFLOW_DIR="$PWD/tools/sflow-rt"
 SETUP_DIR="$PWD"
 
 dir_exists () {
@@ -33,6 +33,8 @@ fi
 # 'name' 'command'
 # DO NOT PUT spaces in the names
 input=(
+  'sflow' "$SFLOW_DIR/start.sh
+  "
   'ryu' "cd $SETUP_DIR/controller/ryu_app; ryu-manager dumb_switch.py ryu.app.ofctl_rest ryu.app.rest_topology --observe-links
   "
   'routing_server' "cd $SETUP_DIR/controller; python3 server.py
