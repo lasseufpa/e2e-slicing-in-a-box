@@ -35,7 +35,7 @@ fi
 input=(
   'sflow' "$SFLOW_DIR/start.sh
   "
-  'ryu' "cd $SETUP_DIR/controller/ryu_app; ryu-manager dumb_switch.py ryu.app.ofctl_rest ryu.app.rest_topology --observe-links
+  'onos' "docker run --name onos --rm -p 8181:8181 -p 6653:6653 onosproject/onos
   "
   'routing_server' "cd $SETUP_DIR/controller; python3 server.py
   "
