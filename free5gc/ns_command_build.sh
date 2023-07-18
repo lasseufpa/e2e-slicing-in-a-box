@@ -11,6 +11,6 @@ sleep 5
 ue="ueransim-ue"
 docker exec -d $ue ./nr-ue -c ./config/uecfg.yaml > /dev/null &
 
-sleep 330
-cd free5gc-compose/
-docker compose stop
+#sleep 330
+#cd free5gc-compose/
+#docker compose stop
