@@ -68,8 +68,8 @@ if os.path.exists("free5gc") == False:
     run_command('cp ../../free5gc/docker-compose.yaml .')
     os.chdir("config")
     run_command('rm uecfg.yaml gnbcfg.yaml')
-    run_command('cp ../../free5gc/config/uecfg.yaml .')
-    run_command('cp ../../free5gc/config/gnbcfg.yaml .')
+    run_command('cp ../../../free5gc/config/uecfg.yaml .')
+    run_command('cp ../../../free5gc/config/gnbcfg.yaml .')
 
 os.chdir(setup_path)
 
