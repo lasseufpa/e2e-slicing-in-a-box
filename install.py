@@ -48,16 +48,8 @@ if os.path.exists("ryu") == False:
     os.chdir("ryu")
     run_command('python3 -m pip install .')
     os.chdir(setup_path)
-
-print("Step 4. Install SFLOW")
-
-if os.path.exists("sflow-rt") == False:
-    run_command('wget  https://inmon.com/products/sFlow-RT/sflow-rt.tar.gz')
-    run_command('tar  -xvzf  sflow-rt.tar.gz')
-    run_command('sflow-rt/get-app.sh sflow-rt mininet-dashboard')
-    os.chdir(setup_path)
     
-print("Step 5. Install free5gc")
+print("Step 4. Install free5gc")
 
 if os.path.exists("free5gc") == False:
     #installing gtp5g
@@ -80,20 +72,28 @@ if os.path.exists("free5gc") == False:
     os.chdir(setup_path)
 
 '''
-print("Step 5. Install GRAFANA")
+print("Step 5. Install SFLOW")
+
+if os.path.exists("sflow-rt") == False:
+    run_command('wget  https://inmon.com/products/sFlow-RT/sflow-rt.tar.gz')
+    run_command('tar  -xvzf  sflow-rt.tar.gz')
+    run_command('sflow-rt/get-app.sh sflow-rt mininet-dashboard')
+    os.chdir(setup_path)
+
+print("Step 6. Install GRAFANA")
 
 if os.path.exists("grafana_7.4.3_amd64.deb") == False:
     run_command('wget  https://dl.grafana.com/oss/release/grafana_7.4.3_amd64.deb')
     run_command('sudo dpkg  -i  grafana_7.4.3_amd64.deb')
     run_command('sudo  systemctl  daemon-reload')
 
-print("Step 6. Run the GRAFANA Server")
+print("Step 7. Run the GRAFANA Server")
 
 run_command('sudo  systemctl  daemon-reload')
 run_command('sudo  systemctl  start  grafana-server')
 run_command('sudo  systemctl  is-active  grafana-server')
 
-print("Step 7. Install Prometheus")
+print("Step 8. Install Prometheus")
 
 if os.path.exists("prometheus-2.26.0.linux-amd64") == False:
     run_command('wget  https://github.com/prometheus/prometheus/releases/download/v2.26.0/prometheus-2.26.0.linux-amd64.tar.gz')
