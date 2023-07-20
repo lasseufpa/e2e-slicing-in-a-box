@@ -1,9 +1,11 @@
+import atexit
 from logging import info
 from mininet.net import Mininet
 from mininet.link import TCLink
 from mininet.node import Docker, RemoteController
 from mininet.topo import Topo
 from mininet.cli import CLI
+from mininet.log import info,setLogLevel
 
 from src.routing.mininet_based.routing import StaticRouter 
 from src.topologies.nsfnet import NSFNet
@@ -12,8 +14,11 @@ from src.topologies.nsfnet import NSFNet
 # - configures sFlow on OVS
 # - posts topology to sFlow-RT
 
-with open("tools/sflow-rt/extras/sflow.py") as f:
-    exec(f.read())
+#with open("tools/sflow-rt/extras/sflow.py") as f:
+#    exec(f.read())
+
+net = None
+#router = None
 
 def main():
     ### Init network
@@ -60,11 +65,11 @@ def main():
     net.start()
 
     ### Routing
-    router = StaticRouter(topo)
-    router.view() # view network topology
-    router.reset() # reset any routing trash from previous runs
+    #router = StaticRouter(topo)
+    #router.view() # view network topology
+    #router.reset() # reset any routing trash from previous runs
 
-    router.route(src=None, dst=None) # every host can reach every other host
+    #router.route(src=None, dst=None) # every host can reach every other host
     # router.route(dst='h2') # every host can reach only h2
     
     ### Start mininet CLI
@@ -76,7 +81,14 @@ def main():
     ### End network 
 
     net.stop() 
-    router.reset() # reset routing
+    #router.reset() # reset routing
+
+def stopNetwork():
+    if net is not None:
+        net.stop()
+        #router.reset() # reset routing
 
 if __name__ == '__main__':
+    atexit.register(stopNetwork)
+    setLogLevel('info')
     main()

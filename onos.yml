@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  onos:
+    container_name: onos
+    image: onosproject/onos
+    expose:
+      - 6653:6653
+      - 8181:8181
+      - 8101:8101
+    network_mode: host
