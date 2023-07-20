@@ -42,18 +42,22 @@ if os.path.exists("containernet") == False:
     run_command('sudo  ansible-playbook  -i  \"localhost\"  -c  local  install.yml')
     os.chdir(os.path.join(setup_path, 'containernet'))
     run_command('sudo make develop')
-    os.chdir(setup_path)
+
+os.chdir(setup_path)
   
 print("Step 3. Install Free5gc")
 
-if os.path.exists("free5gc") == False:
+if os.path.exists("gtp5g") == False:
     #installing gtp5g
-    run_command('git  clone https://github.com/free5gc/gtp5g.git')
+    run_command('git clone https://github.com/free5gc/gtp5g.git')
     os.chdir("gtp5g")
     #run_command('cd gtp5g')
     run_command('make clean && make')
     run_command('sudo make install')
-    os.chdir(setup_path)
+
+os.chdir(setup_path)
+
+if os.path.exists("free5gc") == False:
     #installing free5gc
     run_command('git  clone  https://github.com/free5gc/free5gc-compose.git')
     run_command('cd free5gc-compose')
@@ -65,7 +69,7 @@ if os.path.exists("free5gc") == False:
     run_command('cp ../free5gc/config/uecfg.yaml .')
     run_command('cp ../free5gc/config/gnbcfg.yaml .')
 
-    os.chdir(setup_path)
+os.chdir(setup_path)
 
 '''
 print("Step 3. Install RYU")
