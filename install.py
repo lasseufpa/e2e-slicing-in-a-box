@@ -51,13 +51,13 @@ if os.path.exists("ryu") == False:
 
 print("Step 4. Install SFLOW")
 
+'''
 if os.path.exists("sflow-rt") == False:
     run_command('wget  https://inmon.com/products/sFlow-RT/sflow-rt.tar.gz')
     run_command('tar  -xvzf  sflow-rt.tar.gz')
     run_command('sflow-rt/get-app.sh sflow-rt mininet-dashboard')
     os.chdir(setup_path)
 
-'''
 print("Step 5. Install GRAFANA")
 
 if os.path.exists("grafana_7.4.3_amd64.deb") == False:

@@ -6,6 +6,8 @@ source $HOME/.bashrc
 SFLOW_DIR="$PWD/tools/sflow-rt"
 SETUP_DIR="$PWD"
 
+source ${SETUP_DIR}/.env
+
 dir_exists () {
   if [ ! -d $1 ]; then
     echo "Directory $1 DOES NOT exists."
@@ -33,9 +35,9 @@ fi
 # 'name' 'command'
 # DO NOT PUT spaces in the names
 input=(
-  'sflow' "$SFLOW_DIR/start.sh
-  "
-  'onos' "docker run --name onos --rm -p 8181:8181 -p 6653:6653 onosproject/onos
+  'onos' "ONOS_APPS=${ONOS_DEFAULT_APPS},${ONOS_APPS_CUSTOM} docker compose -f onos.yml up -d ;
+          sleep 20 ;
+          sshpass -p karaf ssh -p 8101 -o UserKnownHostsFile=/dev/null karaf@localhost
   "
   'routing_server' "cd $SETUP_DIR/controller; python3 server.py
   "
@@ -144,9 +146,9 @@ do
   fi
 done
 
-$TMUX_BIN select-window -t $SESSION_NAME:$init_index
+$TMUX_BIN select-window -t ${SESSION_NAME}:$init_index
 
-$TMUX_BIN -2 attach-session -t $SESSION_NAME
+$TMUX_BIN -2 attach-session -t ${SESSION_NAME}
 
 # clear
 
