@@ -21,6 +21,9 @@ if os.path.exists(setup_path) == False:
 
 os.chdir(setup_path)
 
+print("Updating apt")
+run_command('sudo apt update')
+
 print("Step 1. Install prerequisites")
 
 run_command('sudo  apt-get -y install ansible  git  aptitude  gcc  python3-dev  libffi-dev  libssl-dev  libxml2-dev  libxslt1-dev  zlib1g-dev  openjdk-8-jre  adduser  libfontconfig1  debian-keyring  debian-archive-keyring  apt-transport-https')
