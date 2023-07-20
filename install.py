@@ -25,11 +25,11 @@ print("Step 1. Install prerequisites")
 
 run_command('sudo  apt-get -y install ansible  git  aptitude  gcc  python3-dev  libffi-dev  libssl-dev  libxml2-dev  libxslt1-dev  zlib1g-dev  openjdk-8-jre  adduser  libfontconfig1  debian-keyring  debian-archive-keyring  apt-transport-https')
 run_command('sudo  apt-get -y install  tmux libjpeg-dev zlib1g-dev')
-run_command('python3  -m  pip  install  pyyaml')
-run_command('python3  -m  pip  install  pandas')
-run_command('python3  -m  pip  install  matplotlib')
-run_command('python3  -m  pip  install  networkx')
-run_command('python3  -m  pip  install  Flask')
+run_command('sudo python3  -m  pip  install  pyyaml')
+run_command('sudo python3  -m  pip  install  pandas')
+run_command('sudo python3  -m  pip  install  matplotlib')
+run_command('sudo python3  -m  pip  install  networkx')
+run_command('sudo python3  -m  pip  install  Flask')
 
 print("Step 2. Install ContainerNET")
 
