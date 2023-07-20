@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "Installing NS-3 dependencies"
+sudo apt update
 sudo apt install g++ python3 cmake ninja-build git -y 
 sudo apt install ccache -y 
 sudo apt install g++ python3 -y  
@@ -27,7 +28,14 @@ sudo apt install libgtk-3-dev -y
 sudo apt install vtun lxc uml-utilities -y 
 sudo apt install libxml2 libxml2-dev libboost-all-dev -y 
 sudo pip install cppyy
-sudo pip install distro 
+sudo pip install distro
+sudo apt install cmake
+sudo sudo apt install build-essential libtool autoconf unzip wget
+sudo apt install gcc-8 g++-8
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8
+
+sudo update-alternatives --config gcc
 
 echo "Building NS-38 and installing:"
 wget https://www.nsnam.org/releases/ns-allinone-3.38.tar.bz2
