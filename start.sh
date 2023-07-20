@@ -40,9 +40,10 @@ fi
 # 'name' 'command'
 # DO NOT PUT spaces in the names
 input=(
-  'onos' "ONOS_APPS=${ONOS_DEFAULT_APPS},${ONOS_APPS_CUSTOM} docker compose -f onos.yml up -d ;
-          sleep 20 ;
-          sshpass -p karaf ssh -p 8101 -o UserKnownHostsFile=/dev/null karaf@localhost
+  'onos' "docker compose -f onos.yml up -d ;
+          echo 'Waiting for ONOS to start' ; sleep 30 ;
+          sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost app activate ${ONOS_DEFAULT_APPS} ${ONOS_APPS_CUSTOM} ;
+          sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost
   "
   'routing_server' "cd $SETUP_DIR/controller; python3 server.py
   "
