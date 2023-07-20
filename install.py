@@ -40,16 +40,8 @@ if os.path.exists("containernet") == False:
     os.chdir(os.path.join(setup_path, 'containernet'))
     run_command('sudo make develop')
     os.chdir(setup_path)
-
-print("Step 3. Install RYU")
-
-if os.path.exists("ryu") == False:
-    run_command('git  clone  https://github.com/faucetsdn/ryu.git')
-    os.chdir("ryu")
-    run_command('python3 -m pip install .')
-    os.chdir(setup_path)
-    
-print("Step 4. Install free5gc")
+  
+print("Step 3. Install Free5gc")
 
 if os.path.exists("free5gc") == False:
     #installing gtp5g
@@ -72,6 +64,14 @@ if os.path.exists("free5gc") == False:
     os.chdir(setup_path)
 
 '''
+print("Step 3. Install RYU")
+
+if os.path.exists("ryu") == False:
+    run_command('git  clone  https://github.com/faucetsdn/ryu.git')
+    os.chdir("ryu")
+    run_command('python3 -m pip install .')
+    os.chdir(setup_path)
+
 print("Step 5. Install SFLOW")
 
 if os.path.exists("sflow-rt") == False:
