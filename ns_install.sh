@@ -21,9 +21,9 @@ sudo apt install libxml2 libxml2-dev libboost-all-dev -y
 sudo sudo apt install build-essential libtool autoconf unzip wget -y 
 sudo apt install gcc-8 g++-8 -y 
 
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8 -y 
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8
 
-sudo update-alternatives --config gcc -y 
+sudo update-alternatives --config gcc
 
 echo "Building NS-38 and installing:"
 wget https://www.nsnam.org/releases/ns-allinone-3.38.tar.bz2
