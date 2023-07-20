@@ -14,14 +14,16 @@ info('*** Adding controller\n')
 net.addController('c0')
 
 info('*** Adding docker containers\n')
-
 gNodeB1 = net.addDocker('gnb1', ip='10.0.0.2', dimage="ubuntu:trusty")
 gNodeB2 = net.addDocker('gnb2', ip='10.0.0.3', dimage="ubuntu:trusty")
-
+"""
 bbudc = net.addDocker('bbudc',ip='10.0.0.4', dimage="ubuntu:trusty")
 regionaldc = net.addDocker('regionaldc', ip='10.0.0.5', dimage="ubuntu:trusty")
 coredc = net.addDocker('coredc',ip='10.0.0.6', dimage="ubuntu:trusty")
-
+"""
+bbudc  = net.addSwitch('s7')
+regionaldc = net.addSwitch('s8')
+coredc = net.addSwitch('s9')
 info('*** Adding switches\n')
 s1 = net.addSwitch('s1')
 s2 = net.addSwitch('s2')
@@ -56,4 +58,3 @@ info('*** Running CLI\n')
 CLI(net)
 info('*** Stopping network')
 net.stop()
-

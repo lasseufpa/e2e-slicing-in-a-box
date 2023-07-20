@@ -218,10 +218,10 @@ services:
       - NET_ADMIN
     devices:
       - "/dev/net/tun"
-    networks:
-      privnet:
-        aliases:
-          - gnb.free5gc.org
+    network_mode: none 
+    #  privnet:
+    #    aliases:
+    #      - gnb.free5gc.org
     depends_on:
       - free5gc-amf
       - free5gc-upf
@@ -237,10 +237,10 @@ services:
       - NET_ADMIN
     devices:
       - "/dev/net/tun"
-    networks:
-      privnet:
-        aliases:
-          - ue.free5gc.org
+    network_mode: none 
+    #  privnet:
+    #    aliases:
+    #      - ue.free5gc.org
     depends_on:
       - free5gc-amf
       #- free5gc-upf
