@@ -49,10 +49,11 @@ print("Step 3. Install Free5gc")
 if os.path.exists("free5gc") == False:
     #installing gtp5g
     run_command('git  clone https://github.com/free5gc/gtp5g.git')
-    run_command('cd gtp5g')
+    os.chdir("gtp5g")
+    #run_command('cd gtp5g')
     run_command('make clean && make')
     run_command('sudo make install')
-    run_command('cd ..')
+    os.chdir(setup_path)
     #installing free5gc
     run_command('git  clone  https://github.com/free5gc/free5gc-compose.git')
     run_command('cd free5gc-compose')
