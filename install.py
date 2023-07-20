@@ -51,8 +51,8 @@ if os.path.exists("gtp5g") == False:
     #installing gtp5g
     run_command('git clone https://github.com/free5gc/gtp5g.git')
     os.chdir("gtp5g")
-    #run_command('cd gtp5g')
-    run_command('make clean && make')
+    run_command('make clean')
+    run_command('make')
     run_command('sudo make install')
 
 os.chdir(setup_path)
