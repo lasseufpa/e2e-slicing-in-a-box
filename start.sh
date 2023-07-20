@@ -2,6 +2,11 @@
 
 source $HOME/.bashrc
 
+if [ ! -f ~/.tmux.conf ];
+then
+  cp .tmux.conf ~/
+do
+
 # set paths
 SFLOW_DIR="$PWD/tools/sflow-rt"
 SETUP_DIR="$PWD"
