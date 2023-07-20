@@ -1,47 +1,33 @@
 #!/bin/bash
 
-if [[ $EUID -ne 0 ]]; then
-   echo "Must bee executed as sudo!"
-   echo "Error 1"
-   exit 1
-fi
 echo "Installing NS-3 dependencies"
-apt install g++ python3 cmake ninja-build git -y 
-apt install ccache -y 
-apt install g++ python3 -y 
-python3 -m pip install --user cppyy -y 
-apt install gir1.2-goocanvas-2.0 python3-gi python3-gi-cairo python3-pygraphviz gir1.2-gtk-3.0 ipython3 -y 
-apt install python3-setuptools git -y 
-apt install g++ python3 python3-dev pkg-config sqlite3 cmake -y 
-apt install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools -y 
-apt install qt5-default -y 
-apt install gir1.2-goocanvas-2.0 python3-gi python3-gi-cairo python3-pygraphviz gir1.2-gtk-3.0 ipython3 -y 
-apt install python-pygraphviz python-kiwi python-pygoocanvas libgoocanvas-dev ipython -y 
-apt install openmpi-bin openmpi-common openmpi-doc libopenmpi-dev -y 
-apt install mercurial unzip -y 
-apt install gdb valgrind  -y 
-apt install clang-format -y 
-apt install doxygen graphviz imagemagick -y 
-apt install texlive texlive-extra-utils texlive-latex-extra texlive-font-utils dvipng latexmk -y 
-apt install python3-sphinx dia  -y 
-apt install gsl-bin libgsl-dev libgslcblas0 -y 
-apt install tcpdump -y 
-apt install sqlite sqlite3 libsqlite3-dev -y 
-apt install libxml2 libxml2-dev -y 
-apt install cmake libc6-dev libc6-dev-i386 libclang-dev llvm-dev automake python3-pip -y 
-python3 -m pip install --user cxxfilt -y 
-apt install libgtk-3-dev -y 
-apt install vtun lxc uml-utilities -y 
-apt install libxml2 libxml2-dev libboost-all-dev -y 
-pip install cppyy
-pip install distro 
+sudo apt update
+sudo apt install ccache -y 
+sudo apt install gir1.2-goocanvas-2.0 python3-gi python3-gi-cairo python3-pygraphviz gir1.2-gtk-3.0 ipython3 -y 
+sudo apt install python3-setuptools -y 
+sudo apt install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools -y 
+sudo apt install qt5-default -y 
+sudo apt install openmpi-bin openmpi-common openmpi-doc libopenmpi-dev -y 
+sudo apt install mercurial -y 
+sudo apt install gdb valgrind  -y 
+sudo apt install clang-format -y 
+sudo apt install gsl-bin libgsl-dev libgslcblas0 -y 
+sudo apt install tcpdump -y 
+sudo apt install sqlite sqlite3 libsqlite3-dev -y 
+sudo apt install cmake libc6-dev libc6-dev-i386 libclang-dev llvm-dev automake -y 
+sudo apt install libgtk-3-dev -y 
+sudo apt install vtun lxc uml-utilities -y 
+sudo apt install libxml2 libxml2-dev libboost-all-dev -y 
+sudo sudo apt install build-essential libtool autoconf unzip wget -y 
+sudo apt install gcc-8 g++-8 -y 
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8
+
+sudo update-alternatives --config gcc
 
 echo "Building NS-38 and installing:"
-git clone https://gitlab.com/nsnam/bake
-export BAKE_HOME=`pwd`/bake 
-export PATH=$PATH:$BAKE_HOME
-export PYTHONPATH=$PYTHONPATH:$BAKE_HOME
-bake.py check
-bake.py configure -e ns-3.38
-bake.py show   
-bake.py deploy
+wget https://www.nsnam.org/releases/ns-allinone-3.38.tar.bz2
+tar xfj ns-allinone-3.38.tar.bz2
+cd ns-allinone-3.38/ns-3.38
+./ns3 configure --enable-examples --enable-tests
+./ns3 build
