@@ -47,6 +47,7 @@ os.chdir(setup_path)
   
 print("Step 3. Install Free5gc")
 
+print("Installing gtp5g kernel module...")
 if os.path.exists("gtp5g") == False:
     #installing gtp5g
     run_command('git clone https://github.com/free5gc/gtp5g.git')
@@ -57,14 +58,15 @@ if os.path.exists("gtp5g") == False:
 
 os.chdir(setup_path)
 
+print("Cloning and Updating free5Gc...")
 if os.path.exists("free5gc") == False:
     #installing free5gc
     run_command('git  clone  https://github.com/free5gc/free5gc-compose.git')
-    run_command('cd free5gc-compose')
+    os.chdir("free5gc-compose")
     run_command('cp ../free5gc/command_build_app.sh .')
     run_command('rm docker-compose.yaml')
     run_command('cp ../free5gc/docker-compose.yaml .')
-    run_command('cd config')
+    os.chdir("config")
     run_command('rm uecfg.yaml gnbcfg.yaml')
     run_command('cp ../free5gc/config/uecfg.yaml .')
     run_command('cp ../free5gc/config/gnbcfg.yaml .')
