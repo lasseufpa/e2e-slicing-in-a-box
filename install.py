@@ -53,13 +53,13 @@ if os.path.exists("free5gc") == False:
     #installing free5gc
     run_command('git  clone  https://github.com/free5gc/free5gc-compose.git')
     run_command('cd free5gc-compose')
-    run_command('wget -O command_build_app.sh https://raw.githubusercontent.com/lasseufpa/e2e-slicing-in-a-box/ns-free5gc/free5gc/command_build_app.sh')
+    run_command('cp ../free5gc/command_build_app.sh .')
     run_command('rm docker-compose.yaml')
-    run_command('wget -O docker-compose.yaml https://raw.githubusercontent.com/lasseufpa/e2e-slicing-in-a-box/ns-free5gc/free5gc/docker-compose.yaml')
+    run_command('cp ../free5gc/docker-compose.yaml .')
     run_command('cd config')
     run_command('rm uecfg.yaml gnbcfg.yaml')
-    run_command('wget -O uecfg.yaml https://raw.githubusercontent.com/lasseufpa/e2e-slicing-in-a-box/ns-free5gc/free5gc/config/uecfg.yaml')
-    run_command('wget -O gnbcfg.yaml https://raw.githubusercontent.com/lasseufpa/e2e-slicing-in-a-box/ns-free5gc/free5gc/config/gnbcfg.yaml')
+    run_command('cp ../free5gc/config/uecfg.yaml .')
+    run_command('cp ../free5gc/config/gnbcfg.yaml .')
 
     os.chdir(setup_path)
 
