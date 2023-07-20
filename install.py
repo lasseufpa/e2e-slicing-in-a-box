@@ -34,6 +34,8 @@ run_command('sudo python3  -m  pip  install  matplotlib')
 run_command('sudo python3  -m  pip  install  networkx')
 run_command('sudo python3  -m  pip  install  Flask')
 
+run_command('sudo  apt-get -y install  sshpass') # to be able to access onos with password on command line
+
 print("Step 2. Install ContainerNET")
 
 if os.path.exists("containernet") == False:

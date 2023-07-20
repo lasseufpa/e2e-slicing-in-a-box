@@ -5,7 +5,7 @@ source $HOME/.bashrc
 if [ ! -f ~/.tmux.conf ];
 then
   cp .tmux.conf ~/
-do
+fi
 
 # set paths
 SFLOW_DIR="$PWD/tools/sflow-rt"
@@ -17,7 +17,7 @@ dir_exists () {
   if [ ! -d $1 ]; then
     echo "Directory $1 DOES NOT exists."
     exit
-  fi  
+  fi
 }
 
 #dir_exists $SFLOW_DIR
