@@ -44,6 +44,7 @@ if os.path.exists("containernet") == False:
     run_command('sudo  ansible-playbook  -i  \"localhost\"  -c  local  install.yml')
     os.chdir(os.path.join(setup_path, 'containernet'))
     run_command('sudo make develop')
+    run_command('sudo  apt-get -y install ovn-docker')
 
 os.chdir(setup_path)
   
