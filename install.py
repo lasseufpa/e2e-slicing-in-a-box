@@ -64,7 +64,7 @@ print("Cloning and Updating free5Gc...")
 if os.path.exists("free5gc") == False:
     #installing free5gc
     run_command('git  clone  https://github.com/free5gc/free5gc-compose.git')
-    run_command('cp ./docker-compose/free5gc.yaml ./tools/free5gc-compose/')
+    run_command('cp ../docker-compose/free5gc.yaml ./free5gc-compose/')
 os.chdir(setup_path)
 
 '''
