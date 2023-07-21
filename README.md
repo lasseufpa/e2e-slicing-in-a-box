@@ -12,7 +12,7 @@ Tested with **Ubuntu 18.04.**
 
 # Dependencies:
 1. ContainerNet
-2. Ryu
+2. ONOS
 3. NS-3 
 4. UERANSIM
 5. python3 & pip
@@ -41,14 +41,6 @@ Run install.py:
 python3 install.py
 ```
 
-We use Tmux for managing terminal windows. We recommend using the `.tmux.conf` configuration file if you are not familiar with Tmux.
-
-``` console
-cp .tmux.conf ~/
-```
-
-Handy [cheatsheet](https://github.com/klaxalk/linux-setup/wiki/tmux) for using tmux with our `.tmux.conf`.
-
 # How to use & Configuration
 
 To start the emulation setup, use:
@@ -59,6 +51,8 @@ To start the emulation setup, use:
 
 `start.sh` will start Tmux.
 
+We use Tmux for managing terminal windows. Handy [cheatsheet](https://github.com/klaxalk/linux-setup/wiki/tmux) for using tmux with our `.tmux.conf`.
+
 For demonstration purposes, go to the window `scenario` in Tmux and run:
 
 ``` console
@@ -68,6 +62,12 @@ sudo python3 run_demo.py
 That is it! You will see the emulated network topology, and after closing the view, the cointainernet CLI will start. You can play around with the network using the CLI.
 
 It is recommended that you look at the `run_demo.py` code to see how it works. There are some extras there.
+
+For experimentation purposes, go to the window `scenario` in Tmux and run:
+
+``` console
+sudo python3 experiment.py
+```
 
 ## Custom network topology
 
