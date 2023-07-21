@@ -40,10 +40,14 @@ fi
 # 'name' 'command'
 # DO NOT PUT spaces in the names
 input=(
-  'onos' "sudo docker compose -f onos.yaml up
+  'onos' "sudo docker compose -f ./docker-compose/onos.yaml up
   "
   'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 30 ;
                sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost app activate ${ONOS_DEFAULT_APPS} ${ONOS_APPS_CUSTOM} ; sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost
+  "
+  'free5gc' "sudo docker compose -f ./tools/free5gc/free5gc.yaml up
+  "
+  'ueransim' "sudo docker compose -f ./config/uegnb.yaml up
   "
   'scenario' ""
 )
