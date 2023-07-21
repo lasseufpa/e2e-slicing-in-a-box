@@ -47,7 +47,7 @@ input=(
   "
   'free5gc' "sudo docker compose -f ./tools/free5gc-compose/free5gc.yaml up
   "
-  'ueransim' "sudo docker compose -f ./config/uegnb.yaml up
+  'ueransim' "sudo docker compose -f ./docker-compose/uegnb.yaml up -d
   "
   'scenario' ""
 )
