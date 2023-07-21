@@ -4,8 +4,8 @@ services:
   onos:
     container_name: onos
     image: onosproject/onos
-    expose:
+    ports:
       - 6653:6653
       - 8181:8181
       - 8101:8101
-    network_mode: host
+    network_mode: bridge
