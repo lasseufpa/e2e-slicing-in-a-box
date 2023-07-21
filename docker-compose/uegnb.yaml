@@ -6,8 +6,8 @@ services:
     image: free5gc/ueransim:latest
     entrypoint: tail -f /dev/null
     volumes:
-      - ../config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
-      - ../config/uecfg.yaml:/ueransim/config/uecfg.yaml
+      - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
+      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
     cap_add:
       - NET_ADMIN
     devices:
