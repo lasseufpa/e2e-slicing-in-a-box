@@ -218,10 +218,10 @@ services:
       - NET_ADMIN
     devices:
       - "/dev/net/tun"
-    network_mode: none 
-    #  privnet:
-    #    aliases:
-    #      - gnb.free5gc.org
+    network_mode:
+    privnet:
+      aliases:
+        - gnb.free5gc.org
     depends_on:
       - free5gc-amf
       - free5gc-upf
@@ -229,7 +229,7 @@ services:
   ueransim-ue:
     container_name: ueransim-ue
     image: free5gc/ueransim:latest
-    #command: ./nr-ue -c ./config/uecfg.yaml -n 1
+    command: ./nr-ue -c ./config/uecfg.yaml -n 1
     entrypoint: tail -f /dev/null
     volumes:
       - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
@@ -237,13 +237,13 @@ services:
       - NET_ADMIN
     devices:
       - "/dev/net/tun"
-    network_mode: none 
-    #  privnet:
-    #    aliases:
-    #      - ue.free5gc.org
+    network_mode:
+      privnet:
+        aliases:
+          - ue.free5gc.org
     depends_on:
       - free5gc-amf
-      #- free5gc-upf
+      - free5gc-upf
 
 networks:
   privnet:
