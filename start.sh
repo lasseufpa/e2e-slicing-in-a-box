@@ -42,12 +42,12 @@ fi
 input=(
   'onos' "sudo docker compose -f ./docker-compose/onos.yaml up
   "
-  'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 30 ;
+  'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 10 ;
                sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost app activate ${ONOS_DEFAULT_APPS} ${ONOS_APPS_CUSTOM} ; sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost
   "
   'free5gc' "sudo docker compose -f ./tools/free5gc-compose/free5gc.yaml up
   "
-  'ueransim' "sudo docker compose -f ./docker-compose/uegnb.yaml up -d
+  'ran' "sudo docker compose -f ./docker-compose/uegnb.yaml up
   "
   'scenario' ""
 )

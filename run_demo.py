@@ -1,5 +1,7 @@
 import atexit
 from logging import info
+import os
+import subprocess
 from mininet.net import Mininet
 from mininet.link import TCLink
 from mininet.node import Docker, RemoteController
@@ -7,15 +9,13 @@ from mininet.topo import Topo
 from mininet.cli import CLI
 from mininet.log import info,setLogLevel
 
-from src.routing.mininet_based.routing import StaticRouter 
-from src.topologies.nsfnet import NSFNet
+def run_command(command):
+    returncode = subprocess.run(command.split()).returncode
+    if returncode != 0:
+        print(f'failed to run:\n{command}')
+        exit(0)
 
-# Compile and run sFlow helper script
-# - configures sFlow on OVS
-# - posts topology to sFlow-RT
-
-#with open("tools/sflow-rt/extras/sflow.py") as f:
-#    exec(f.read())
+setup_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'scripts')
 
 net = None
 #router = None
@@ -64,24 +64,17 @@ def main():
     net.addController('c0',controller=RemoteController, ip='127.0.0.1', port=6653)
     net.start()
 
-    ### Routing
-    #router = StaticRouter(topo)
-    #router.view() # view network topology
-    #router.reset() # reset any routing trash from previous runs
+    info('*** Starting RAN\n')
+    os.chdir(setup_path)
+    run_command('./start_ran.sh')
+    info('*** Connecting Core to the network\n')
+    run_command('./connect_core.sh')
 
-    #router.route(src=None, dst=None) # every host can reach every other host
-    # router.route(dst='h2') # every host can reach only h2
-    
     ### Start mininet CLI
-
-    net.pingAll()
-
     CLI(net)
 
     ### End network 
-
     net.stop() 
-    #router.reset() # reset routing
 
 def stopNetwork():
     if net is not None:
