@@ -3,7 +3,7 @@ from mininet.topo import Topo
 # Topology implemented
 #  --- s1 ---3m--- s3 ---11ms--- s5 ---70ms
 #      |  \        /| \         / |      |
-#      .5ms \      /2ms \       / 11ms    |
+#     .5ms \      /2ms \       / 11ms    |
 #      |    3ms  /  |   11ms  /   |      |
 #     edge     \/  reg      \/   core  remote ---
 #      |     3ms\   |    11ms\    |      |
