@@ -45,6 +45,8 @@ input=(
   'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 30 ;
                sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost app activate ${ONOS_DEFAULT_APPS} ${ONOS_APPS_CUSTOM} ; sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost
   "
+  'containernet' "sudo mn -c ; sudo python3 network.py
+  "
   'scenario' ""
 )
 
