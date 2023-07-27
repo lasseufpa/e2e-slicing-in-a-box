@@ -49,7 +49,8 @@ input=(
   "
   'ran' "sudo docker compose -f ./docker-compose/uegnb.yaml up
   "
-  'scenario' ""
+  'scenario' "sudo python3 transport-network.py ./scripts/connect_core.sh
+  "
 )
 
 init_window="scenario"
