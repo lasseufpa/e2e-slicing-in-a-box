@@ -1,2 +1,2 @@
 app activate org.onosproject.drivers org.onosproject.optical-model org.onosproject.hostprovider org.onosproject.lldpprovider org.onosproject.openflow-base
-app activate org.onosproject.openflow org.onosproject.fwd
+app activate org.onosproject.openflow org.onosproject.config org.onosproject.proxyarp #org.onosproject.fwd

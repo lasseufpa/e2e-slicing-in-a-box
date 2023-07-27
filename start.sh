@@ -34,6 +34,7 @@ if [ ! -d $MAIN_DIR ]; then
 fi
 
 ONOS_SSH="sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost"
+ONOS_CMD="sshpass -p karaf ssh -n -p 8101 -o StrictHostKeyChecking=no karaf@localhost"
 ONOS_CMD_FILE="onoscmd"
 
 # following commands will be executed first, in each window
@@ -46,7 +47,7 @@ input=(
   'onos' "sudo docker compose -f onos.yaml up
   "
   'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 30 ; \
-               while IFS="" read -r p ; do ${ONOS_SSH} "$p" ; done < ${ONOS_CMD_FILE} ; ${ONOS_SSH}
+               while IFS="" read -r p ; do ${ONOS_CMD} \$p ; done < ${ONOS_CMD_FILE} ; ${ONOS_SSH}
   "
   'containernet' "sudo mn -c ; sudo python3 network.py
   "
