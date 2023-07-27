@@ -4,16 +4,15 @@ ONOS_ENV="onosdevices"
 
 source $ONOS_ENV
 
-#IFS="" read -r -a lines < $ONOS_CMD_FILE || (( ${#onoscommands[@]} ))
-#echo ${#onoscommands[@]}
-
+# READ onos commands
 while IFS= read -r p 
-#for p in "${#onoscommands[@]}"
 do
-    #echo "$p"
-    com=$(eval echo "$p")
-    echo "$p" "--->>>" "$com"
-    ${ONOS_SSH} $com
-    #sleep 1;
-    #echo next
+    if [[ ! -z $p ]] && [[ $p != \#* ]];
+    then
+        #echo "$p"
+        com=$(eval echo "$p")
+        echo "$p" "--->>>" "$com"
+        ${ONOS_SSH} $com
+        sleep 1;
+    fi
 done < "${ONOS_CMD_FILE}"

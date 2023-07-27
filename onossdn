@@ -1,14 +1,12 @@
+# s1
 add-point-intent ${ID_SW1}/1 ${ID_SW1}/4
 add-point-intent ${ID_SW1}/4 ${ID_SW1}/1
-add-point-intent ${ID_SW1}/1 ${ID_SW3}/1
-add-point-intent ${ID_SW3}/1 ${ID_SW1}/1
+# s3
 add-point-intent ${ID_SW3}/1 ${ID_SW3}/2
 add-point-intent ${ID_SW3}/2 ${ID_SW3}/1
-add-point-intent ${ID_SW3}/2 ${ID_SW5}/1
-add-point-intent ${ID_SW5}/1 ${ID_SW3}/2
+# s5
 add-point-intent ${ID_SW5}/1 ${ID_SW5}/4
 add-point-intent ${ID_SW5}/4 ${ID_SW5}/1
-add-point-intent ${ID_SW5}/4 ${ID_REM}/1
-add-point-intent ${ID_REM}/1 ${ID_SW5}/4
+# rem
 add-point-intent ${ID_REM}/1 ${ID_REM}/3
 add-point-intent ${ID_REM}/3 ${ID_REM}/1
