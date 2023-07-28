@@ -24,7 +24,7 @@ dir_exists () {
 dir_exists $SETUP_DIR
 
 # change this to your liking
-PROJECT_NAME=emulation
+PROJECT_NAME=e2e-slicing-in-a-box
 
 # do not change this
 MAIN_DIR=~/"tmux_logs"
@@ -33,6 +33,9 @@ if [ ! -d $MAIN_DIR ]; then
   mkdir -p $MAIN_DIR/$PROJECT_NAME
 fi
 
+ONOS_SSH="sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost"
+ONOS_CMD_FILE="onoscmd"
+
 # following commands will be executed first, in each window
 # pre_input=""
 
@@ -40,6 +43,7 @@ fi
 # 'name' 'command'
 # DO NOT PUT spaces in the names
 input=(
+<<<<<<< HEAD
   'onos' "sudo docker compose -f ./docker-compose/onos.yaml up
   "
   'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 10 ;
@@ -50,6 +54,14 @@ input=(
   'ran' "sudo docker compose -f ./docker-compose/uegnb.yaml up
   "
   'scenario' "sudo python3 transport-network.py ./scripts/connect_core.sh
+=======
+  'onos' "sudo docker compose -f onos.yaml up
+  "
+  'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 30 ; \
+               while IFS="" read -r p ; do ${ONOS_SSH} "$p" ; done < ${ONOS_CMD_FILE} ; ${ONOS_SSH}
+  "
+  'containernet' "sudo mn -c ; sudo python3 network.py
+>>>>>>> main
   "
 )
 

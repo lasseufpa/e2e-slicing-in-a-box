@@ -26,11 +26,11 @@ Tested with **Ubuntu 18.04.**
 To install the NS-3 used version, just run the `ns_install.sh` shell script as sudo:
 
 ``` console
-sudo ./ns_install.sh
+./ns_install.sh
 ```
 
 
-## Ryu and ContainerNet
+## ONOS and ContainerNet
 First, make sure you have python3 with pip installed.
 
 `install.py` will try to install all dependencies needed in a `tools/` folder. Everything should work, but if something goes wrong, you will need to install the dependencies that failed in `tools/` (or in the system).
@@ -46,9 +46,10 @@ python3 install.py
 To start the emulation setup, use:
 
 ``` console
-./start.sh
+sudo ./start.sh
 ```
 
+<<<<<<< HEAD
 `start.sh` will start Tmux.
 
 We use Tmux for managing terminal windows. Handy [cheatsheet](https://github.com/klaxalk/linux-setup/wiki/tmux) for using tmux with our `.tmux.conf`.
@@ -58,6 +59,9 @@ For demonstration purposes, go to the window `scenario` in Tmux and run:
 ``` console
 sudo python3 run_demo.py
 ```
+=======
+`start.sh` will start Tmux and run ONOS and Containernet with our topology.
+>>>>>>> main
 
 That is it! You will see the emulated network topology, and after closing the view, the cointainernet CLI will start. You can play around with the network using the CLI.
 
@@ -87,6 +91,8 @@ We recommend using the following convention when creating a new network topology
 PS: For now, our routing module only supports a maximum of 255 hosts.
 
 ## Control of the network performance
+
+**This section is outdated**
 
 You can control the following parameters dynamically via our REST server:
 - link rate
