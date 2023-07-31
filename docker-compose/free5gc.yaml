@@ -115,7 +115,7 @@ services:
       GIN_MODE: release
     networks:
       privnet: 
-        ipv4_address: 10.100.200.5
+        ipv4_address: 10.100.200.7
         aliases:
           - pcf.free5gc.org
     depends_on:
@@ -134,7 +134,7 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        ipv4_address: 10.100.200.2
+        ipv4_address: 10.100.200.14
         aliases:
           - smf.free5gc.org
     depends_on:
