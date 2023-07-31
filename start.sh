@@ -43,25 +43,12 @@ ONOS_CMD_FILE="onoscmd"
 # 'name' 'command'
 # DO NOT PUT spaces in the names
 input=(
-<<<<<<< HEAD
-  'onos' "sudo docker compose -f ./docker-compose/onos.yaml up
-  "
-  'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 10 ;
-               sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost app activate ${ONOS_DEFAULT_APPS} ${ONOS_APPS_CUSTOM} ; sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost
-  "
-  'free5gc' "sudo docker compose -f ./tools/free5gc-compose/free5gc.yaml up
-  "
-  'ran' "sudo docker compose -f ./docker-compose/uegnb.yaml up
-  "
-  'scenario' "sudo python3 transport-network.py ./scripts/connect_core.sh
-=======
   'onos' "sudo docker compose -f onos.yaml up
   "
   'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 30 ; \
                while IFS="" read -r p ; do ${ONOS_SSH} "$p" ; done < ${ONOS_CMD_FILE} ; ${ONOS_SSH}
   "
   'containernet' "sudo mn -c ; sudo python3 network.py
->>>>>>> main
   "
 )
 
