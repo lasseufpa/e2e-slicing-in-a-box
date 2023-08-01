@@ -54,9 +54,9 @@ class F5GCTopo(Topo):
         self.addLink(s6, remote, delay='70ms', bw=1000)
 
         # test hosts
-        h1 = self.addHost('h1')
-        h2 = self.addHost('h2')
-        h3 = self.addHost('h3')
+        h1 = self.addHost('h1', ip="10.0.1.1")
+        h2 = self.addHost('h2', ip="10.0.1.2")
+        h3 = self.addHost('h3', ip="10.0.1.3")
         self.addLink(h1,s1)
         self.addLink(h2,remote)
         self.addLink(h3,s4)
