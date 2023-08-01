@@ -101,4 +101,9 @@ if os.path.exists("prometheus-2.26.0.linux-amd64") == False:
     run_command('sudo cp prometheus.yml tools/prometheus-2.26.0.linux-amd64/')
 '''
 
+print("Installing ns-3 ...")
+if os.path.exists("ns3") == False:
+    run_command("./../ns_install.sh")
+    run_command("rm -rf ns-allinone-3.38.tar.bz2")
+os.chdir(setup_path)
 print("installation completed !!!")
