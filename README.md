@@ -49,19 +49,7 @@ To start the emulation setup, use:
 sudo ./start.sh
 ```
 
-<<<<<<< HEAD
-`start.sh` will start Tmux.
-
-We use Tmux for managing terminal windows. Handy [cheatsheet](https://github.com/klaxalk/linux-setup/wiki/tmux) for using tmux with our `.tmux.conf`.
-
-For demonstration purposes, go to the window `scenario` in Tmux and run:
-
-``` console
-sudo python3 run_demo.py
-```
-=======
 `start.sh` will start Tmux and run ONOS and Containernet with our topology.
->>>>>>> main
 
 That is it! You will see the emulated network topology, and after closing the view, the cointainernet CLI will start. You can play around with the network using the CLI.
 
