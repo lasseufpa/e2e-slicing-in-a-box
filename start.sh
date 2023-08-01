@@ -47,9 +47,10 @@ input=(
   'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 50 ; \
                while IFS="" read -r p ; do ${ONOS_CMD} \$p ; done < ${ONOS_CMD_FILE} ; ${ONOS_SSH}
   "
+  'free5gc' "docker compose -f docker-compose/free5gc.yaml up
+  "
   'containernet' "sudo mn -c ; sudo python3 network.py
   "
-  'scenario' ""
 )
 
 init_window="scenario"

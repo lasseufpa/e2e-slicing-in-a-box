@@ -41,14 +41,6 @@ Run install.py:
 python3 install.py
 ```
 
-We use Tmux for managing terminal windows. We recommend using the `.tmux.conf` configuration file if you are not familiar with Tmux.
-
-``` console
-cp .tmux.conf ~/
-```
-
-Handy [cheatsheet](https://github.com/klaxalk/linux-setup/wiki/tmux) for using tmux with our `.tmux.conf`.
-
 # How to use & Configuration
 
 To start the emulation setup, use:
@@ -57,11 +49,29 @@ To start the emulation setup, use:
 sudo ./start.sh
 ```
 
+<<<<<<< HEAD
+`start.sh` will start Tmux.
+
+We use Tmux for managing terminal windows. Handy [cheatsheet](https://github.com/klaxalk/linux-setup/wiki/tmux) for using tmux with our `.tmux.conf`.
+
+For demonstration purposes, go to the window `scenario` in Tmux and run:
+
+``` console
+sudo python3 run_demo.py
+```
+=======
 `start.sh` will start Tmux and run ONOS and Containernet with our topology.
+>>>>>>> main
 
 That is it! You will see the emulated network topology, and after closing the view, the cointainernet CLI will start. You can play around with the network using the CLI.
 
 It is recommended that you look at the `run_demo.py` code to see how it works. There are some extras there.
+
+For experimentation purposes, go to the window `scenario` in Tmux and run:
+
+``` console
+sudo python3 experiment.py
+```
 
 ## Custom network topology
 
@@ -144,9 +154,21 @@ Our `StaticRouter` implementation uses the REST API to route the network based o
 
 Please check the Mininet [documention](https://github.com/mininet/mininet/wiki/Introduction-to-Mininet#running-programs-in-hosts) on how to connect applications to hosts in the network topology. If you want to connect a docker container, check containernet [documentation](https://containernet.github.io/#get-started).
 
+## free5GC installation
 
-# Troubleshooting & FAQ
+## Prerequisites
 
- * Dynamic control of the network parameters is currently not working, contact https://github.com/diegodantasf if you need to use it.
+- [GTP5G kernel module](https://github.com/free5gc/gtp5g): needed to run the UPF
+- [Docker Engine](https://docs.docker.com/engine/install): needed to run the Free5GC containers
+- [Docker Compose v2](https://docs.docker.com/compose/install): needed to bootstrap the free5GC stack
+- [ns-3](https://github.com/lasseufpa/e2e-slicing-in-a-box/blob/main/ns_install.sh): Required for network simulation
 
+- [free5gc-compose](https://github.com/free5gc/free5gc-compose)
 
+### Changing docker compose file
+For the project to work, it was necessary to modify the "docker-compose" file and the configuration folder present in the Free5GC repository by the [docker-compose](https://github.com/lasseufpa/e2e-slicing-in-a-box/blob/ns-free5gc/free5gc/docker-compose.yaml) and [config](https://github.com/lasseufpa/e2e-slicing-in-a-box/tree/ns-free5gc/free5gc/config) generated and made available by this repository  
+
+## Reference
+- https://github.com/free5gc/free5gc-compose
+- https://github.com/open5gs/nextepc/tree/master/docker
+- https://github.com/abousselmi/docker-free5gc
