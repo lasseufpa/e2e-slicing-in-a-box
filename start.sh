@@ -31,9 +31,12 @@ if [ ! -d $MAIN_DIR ]; then
   mkdir -p $MAIN_DIR/$PROJECT_NAME
 fi
 
-ONOS_SSH="sshpass -p karaf ssh -p 8101 -o StrictHostKeyChecking=no karaf@localhost"
-ONOS_CMD="sshpass -p karaf ssh -n -p 8101 -o StrictHostKeyChecking=no karaf@localhost"
+ONOS_SSH="sshpass -p karaf ssh -p 8101 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no karaf@localhost"
+ONOS_CMD="sshpass -p karaf ssh -n -p 8101 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no karaf@localhost"
 ONOS_CMD_FILE="onoscmd"
+
+DOCKER_RM=$(docker ps -a --format {{.Names}})
+if [ ! -z "$DOCKER_RM" ]; then docker rm $DOCKER_RM ; fi
 
 # following commands will be executed first, in each window
 # pre_input=""

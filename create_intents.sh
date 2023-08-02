@@ -1,4 +1,4 @@
-ONOS_SSH="sshpass -p karaf ssh -n -p 8101 -o StrictHostKeyChecking=no karaf@localhost"
+ONOS_SSH="sshpass -p karaf ssh -n -p 8101 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no karaf@localhost"
 ONOS_CMD_FILE="onossdn"
 ONOS_ENV="onosdevices"
 
