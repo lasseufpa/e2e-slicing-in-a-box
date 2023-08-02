@@ -2,7 +2,6 @@
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 COMPOSE_DIR="$(dirname $SCRIPT_DIR)/docker-compose"
-echo $COMPOSE_DIR
 
 #Clean 
 ip link del br-left
