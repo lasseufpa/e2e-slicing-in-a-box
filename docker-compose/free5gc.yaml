@@ -232,6 +232,7 @@ services:
       - "/dev/net/tun"
     networks:
       privnet:
+        ipv4_address: 10.100.200.12
         aliases:
           - gnb.free5gc.org
     depends_on:
@@ -252,6 +253,7 @@ services:
       - "/dev/net/tun"
     networks:
       privnet:
+        ipv4_address: 10.100.200.15
         aliases:
           - ue.free5gc.org
     depends_on:
