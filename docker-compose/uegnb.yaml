@@ -2,15 +2,25 @@ version: '3.8'
 
 services:
   ueransim:
-    container_name: uegnb
+    container_name: ueransim
     image: free5gc/ueransim:latest
+    #command: ./nr-gnb -c ./config/gnbcfg.yaml
     entrypoint: tail -f /dev/null
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
-      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
-      - ./config/hosts:/etc/hosts
     cap_add:
       - NET_ADMIN
     devices:
       - "/dev/net/tun"
-    network_mode: none 
+    
+  ueransim-ue:
+    container_name: ueransim-ue
+    image: free5gc/ueransim:latest
+    #command: ./nr-ue -c ./config/uecfg.yaml -n 1
+    entrypoint: tail -f /dev/null
+    volumes:
+      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
