@@ -57,6 +57,7 @@ if os.path.exists("gtp5g") == False:
     #installing gtp5g
     run_command('git clone https://github.com/free5gc/gtp5g.git')
     os.chdir("gtp5g")
+    run_command('git checkout v0.8.2')
     run_command('make clean')
     run_command('make')
     run_command('sudo make install')
@@ -69,6 +70,28 @@ if os.path.exists("free5gc") == False:
     run_command('git  clone  https://github.com/free5gc/free5gc-compose.git')
     run_command('cp ../docker-compose/free5gc.yaml ./free5gc-compose/')
 os.chdir(setup_path)
+
+print("Step 4. Install NS3")
+
+print("Installing NS-3 dependencies")
+print("Building NS-38 and installing:")
+run_command("sudo apt-get install ccache gir1.2-goocanvas-2.0 python3-gi python3-gi-cairo python3-pygraphviz gir1.2-gtk-3.0 ipython3 python3-setuptools\
+ qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qt5-default openmpi-bin openmpi-common openmpi-doc libopenmpi-dev mercurial gdb valgrind\
+ clang-format gsl-bin libgsl-dev libgslcblas0 tcpdump sqlite sqlite3 libsqlite3-dev cmake libc6-dev libc6-dev-i386 libclang-dev llvm-dev\
+ automake libgtk-3-dev vtun lxc uml-utilities libxml2 libxml2-dev libboost-all-dev build-essential libtool autoconf unzip wget gcc-8 g++-8 -y ")
+run_command("sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8")
+run_command("sudo update-alternatives --config gcc")
+
+os.chdir(setup_path)
+
+if os.path.exists("ns-allinone-3.38") == False:
+    run_command("wget https://www.nsnam.org/releases/ns-allinone-3.38.tar.bz2")
+    run_command("tar xfj ns-allinone-3.38.tar.bz2")
+    os.remove("ns-allinone-3.38.tar.bz2")
+    os.chdir("ns-allinone-3.38/ns-3.38")
+    run_command("./ns3 configure --enable-examples --enable-tests")
+    run_command("./ns3 build")
+
 
 '''
 print("Step 5. Install SFLOW")
@@ -101,9 +124,11 @@ if os.path.exists("prometheus-2.26.0.linux-amd64") == False:
     run_command('sudo cp prometheus.yml tools/prometheus-2.26.0.linux-amd64/')
 '''
 
+'''
 print("Installing ns-3 ...")
 if os.path.exists("ns3") == False:
     run_command("./../ns_install.sh")
     run_command("rm -rf ns-allinone-3.38.tar.bz2")
 os.chdir(setup_path)
 print("installation completed !!!")
+'''
