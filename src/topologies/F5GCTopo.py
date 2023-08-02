@@ -31,32 +31,32 @@ class F5GCTopo(Topo):
         remote = self.addSwitch('s10')
         
         # Direct connections
-        self.addLink(s1, s3, delay='3ms', bw=1000)
-        self.addLink(s2, s4, delay='3ms', bw=1000)
+        self.addLink(s1, s3, delay='3ms',  bw=1000)
+        self.addLink(s2, s4, delay='3ms',  bw=1000)
         self.addLink(s3, s5, delay='11ms', bw=1000)
         self.addLink(s4, s6, delay='11ms', bw=1000)
         # Crossed connections
-        self.addLink(s1, s4, delay='3ms', bw=1000)
-        self.addLink(s2, s3, delay='3ms', bw=1000)
+        self.addLink(s1, s4, delay='3ms',  bw=1000)
+        self.addLink(s2, s3, delay='3ms',  bw=1000)
         self.addLink(s3, s6, delay='11ms', bw=1000)
         self.addLink(s4, s5, delay='11ms', bw=1000)
 
         # Connections to the datacenters
-        self.addLink(s1, edge, delay='0.5ms', bw=1000)
-        self.addLink(s2, edge, delay='0.5ms', bw=1000)
-        self.addLink(s3, regional, delay='2ms', bw=1000)
-        self.addLink(s4, regional, delay='2ms', bw=1000)
-        self.addLink(s5, core, delay='11ms', bw=1000)
-        self.addLink(s6, core, delay='11ms', bw=1000)
+        self.addLink(s1, edge,     delay='0.5ms', bw=1000)
+        self.addLink(s2, edge,     delay='0.5ms', bw=1000)
+        self.addLink(s3, regional, delay='2ms',   bw=1000)
+        self.addLink(s4, regional, delay='2ms',   bw=1000)
+        self.addLink(s5, core,     delay='11ms',  bw=1000)
+        self.addLink(s6, core,     delay='11ms',  bw=1000)
 
         # Connections to remote datacenters
         self.addLink(s5, remote, delay='70ms', bw=1000)
         self.addLink(s6, remote, delay='70ms', bw=1000)
 
         # test hosts
-        h1 = self.addHost('h1', ip="10.0.1.1")
-        h2 = self.addHost('h2', ip="10.0.1.2")
-        h3 = self.addHost('h3', ip="10.0.1.3")
+        h1 = self.addHost('h1', ip="10.100.200.101/24", mac="00:00:00:00:01:01")
+        h2 = self.addHost('h2', ip="10.100.200.102/24")
+        h3 = self.addHost('h3', ip="10.100.200.103/24")
         self.addLink(h1,s1)
         self.addLink(h2,remote)
         self.addLink(h3,s4)
