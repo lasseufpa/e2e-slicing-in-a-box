@@ -9,10 +9,10 @@ ip link del br-left
 ip link del br-right
 ip link del tap-left
 ip link del tap-right
-docker rm --force ueransim-ue ueransim
-sleep 1
-docker compose -f $COMPOSE_DIR/uegnb.yaml up > /dev/null &
-sleep 30
+#docker rm --force ueransim-ue ueransim
+#sleep 1
+#docker compose -f $COMPOSE_DIR/uegnb.yaml up > /dev/null &
+#sleep 30
 
 # Creating both taps 
 ip tuntap add tap-left mode tap

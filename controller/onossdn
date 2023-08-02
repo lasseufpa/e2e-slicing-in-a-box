@@ -1,7 +1,7 @@
 ### Connection from H1 and UE1 to CORE
 # s1
 add-point-intent -p 100 --ethDst "00:00:00:00:01:01" $S1_S3 $S1_H1
-add-point-intent -p 50 $S1_S3 $S1_UE1
+add-point-intent -p 50 --ethDst "00:00:00:00:01:02" $S1_S3 $S1_UE1
 add-point-intent $S1_H1 $S1_S3
 add-point-intent $S1_UE1 $S1_S3
 # s3

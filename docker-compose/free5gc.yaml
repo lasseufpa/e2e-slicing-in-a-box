@@ -219,6 +219,45 @@ services:
     depends_on:
       - db
 
+  ueransim:
+    container_name: ueransim
+    image: free5gc/ueransim:latest
+    #command: ./nr-gnb -c ./config/gnbcfg.yaml
+    entrypoint: tail -f /dev/null
+    volumes:
+      - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
+    networks:
+      privnet:
+        aliases:
+          - gnb.free5gc.org
+    depends_on:
+      - free5gc-amf
+      - free5gc-upf
+
+    
+  ueransim-ue:
+    container_name: ueransim-ue
+    image: free5gc/ueransim:latest
+    #command: ./nr-ue -c ./config/uecfg.yaml -n 1
+    entrypoint: tail -f /dev/null
+    volumes:
+      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
+    networks:
+      privnet:
+        aliases:
+          - ue.free5gc.org
+    depends_on:
+      - free5gc-amf
+      #- free5gc-upf
+
 networks:
   privnet:
     ipam:
