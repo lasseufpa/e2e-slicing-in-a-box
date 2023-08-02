@@ -1,34 +1,40 @@
 #!/bin/bash
 
-docker compose up > /dev/null &
-sleep 20
-# Creating both taps 
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+COMPOSE_DIR="$(dirname $SCRIPT_DIR)/docker-compose"
+echo $COMPOSE_DIR
 
+#Clean 
+ip link del br-left
+ip link del br-right
+ip link del tap-left
+ip link del tap-right
+docker rm --force ueransim-ue ueransim
+sleep 1
+docker compose -f $COMPOSE_DIR/uegnb.yaml up > /dev/null &
+sleep 30
+
+# Creating both taps 
 ip tuntap add tap-left mode tap
 ip tuntap add tap-right mode tap
 
 # Making both packet listeners, even if the mac address is not
-
 ip link set tap-left promisc on
 ip link set tap-right promisc on
 
 # Upping both of tap's
-
 ip link set tap-right up 
 ip link set tap-left up
 
 # Creating both bridges
-
 ip link add name br-left type bridge
 ip link add name br-right type bridge
 
 # Making both Tap's linked to the correct bridge
-
 ip link set tap-left master br-left
 ip link set tap-right master br-right 
 
 # Creating 'bridge rules"
-
 echo "Defining Bridge Rules"
 sudo iptables -I FORWARD -m physdev --physdev-is-bridged -i br-left -p icmp -j ACCEPT
 sudo iptables -I FORWARD -m physdev --physdev-is-bridged -i br-right -p icmp -j ACCEPT
@@ -65,7 +71,6 @@ docker exec $ue ip link set dev eth address "52:9c:58:1e:ad:ec"
 #sleep 5
 
 # "Upping' the bridges
-
 ip link set br-left up
 ip link set br-right up
 

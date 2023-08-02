@@ -33,10 +33,12 @@ fi
 
 ONOS_SSH="sshpass -p karaf ssh -p 8101 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no karaf@localhost"
 ONOS_CMD="sshpass -p karaf ssh -n -p 8101 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no karaf@localhost"
-ONOS_CMD_FILE="onoscmd"
+ONOS_CMD_FILE="controller/onoscmd"
 
 DOCKER_RM=$(docker ps -a --format {{.Names}})
 if [ ! -z "$DOCKER_RM" ]; then docker rm $DOCKER_RM ; fi
+
+sudo ovs-docker del-port s1 eth10 ueransim
 
 # following commands will be executed first, in each window
 # pre_input=""
@@ -47,14 +49,15 @@ if [ ! -z "$DOCKER_RM" ]; then docker rm $DOCKER_RM ; fi
 input=(
   'onos' "sudo docker compose -f docker-compose/onos.yaml up
   "
-  'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 50 ; \
+  'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 60 ; \
                while IFS="" read -r p ; do ${ONOS_CMD} \$p ; done < ${ONOS_CMD_FILE} ; ${ONOS_SSH}
   "
   'free5gc' "docker compose -f docker-compose/free5gc.yaml up
   "
   'containernet' "sudo mn -c ; sudo python3 network.py
   "
-  'scenario' ""
+  'scenario' "echo 'Waiting for all software to start' ; sleep 60 ; cd scripts ; su \$SUDO_USER
+  "
 )
 
 init_window="scenario"
