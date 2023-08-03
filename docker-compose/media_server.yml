@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  # client:
+  #   image: ubuntu
+  #   tty: true
+  #   stdin_open: true
+  #   command: sh -c "apt update && apt install ffmpeg -y"
+
+  server:
+    container_name: server
+    build: ../src/media_serve/.
+    tty: true
+    stdin_open: true
+    command: sh -c "cd mediamtx && ./mediamtx"
+    
