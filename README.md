@@ -21,15 +21,6 @@ Tested with **Ubuntu 18.04.**
 
 # Installation
 
-## NS-3 
-
-To install the NS-3 used version, just run the `ns_install.sh` shell script as sudo:
-
-``` console
-./ns_install.sh
-```
-
-
 ## ONOS and ContainerNet
 First, make sure you have python3 with pip installed.
 
@@ -37,7 +28,7 @@ First, make sure you have python3 with pip installed.
 
 Run install.py:
 
-``` console
+```console
 python3 install.py
 ```
 
@@ -49,16 +40,17 @@ To start the emulation setup, use:
 sudo ./start.sh
 ```
 
-`start.sh` will start Tmux and run ONOS and Containernet with our topology.
+`start.sh` will start Tmux and run ONOS, Containernet and Free5GC with our topology.
 
-That is it! You will see the emulated network topology, and after closing the view, the cointainernet CLI will start. You can play around with the network using the CLI.
+After 1 minute, verify on the `onos-cli` window that all apps cited in `controller/onoscmd` were activated. You should also check the `onos` and `free5gc` windows to see if any container stoped working.
 
-It is recommended that you look at the `run_demo.py` code to see how it works. There are some extras there.
-
-For experimentation purposes, go to the window `scenario` in Tmux and run:
+After checking all above, run the following commands on the `scenario` window:
 
 ``` console
-sudo python3 experiment.py
+./create_intents.sh             # to install routing on each switch
+./connect_core.sh               # to connect the 5G core containers to Containernet
+./start_ran.sh                  # to connect the UE to the respective switch
+./ns_command_build.sh           # to start NS-3 and connect it to the gNB and UE
 ```
 
 ## Custom network topology
@@ -78,69 +70,6 @@ We recommend using the following convention when creating a new network topology
 
 PS: For now, our routing module only supports a maximum of 255 hosts.
 
-## Control of the network performance
-
-**This section is outdated**
-
-You can control the following parameters dynamically via our REST server:
-- link rate
-- link delay
-- link packet drop rate
-- switch interface buffer size
-- routing
-
-REST server endpoint:
-
-### http://127.0.0.1:5000/manage_switch_traffic
-```json
-{
-    "type": "delay", // parameter to change
-    "switchId": 1, // for switch s1
-    "ifacePort": 1, // for interface s1-eth1
-    "value": 100 // new value for parameter
-}
-```
-
-Explanation:
-- `type` can be `[delay, loss, rate, limit]`, where 
-    - delay: link delay
-    - loss: link packet drop rate
-    - rate: link rate
-    - limit: buffer size
-- `switchId` is the id of a switch in the network
-- `ifacePort` is the id of the switch interface where the link in question connects.
-- `value` new value for the `type` paramenter, example:
-    - for delay: `"value": 100ms` is a `100ms` delay.
-    - for loss: `"value": 10%` is a `10%` loss.
-    - for rate: `"value": 250kbit` is a rate of `250kbit`. 
-
-## Custom routing
-
-You can route the network ~~manually~~ with the REST API, use our `StaticRouter` implementation, or even build your own `<insert here>Router` by inheriting our `BaseRouter` class.
-
-REST server end point:
-### http://127.0.0.1:5000/route
-```json
-{
-    "switchId": 1, // for switch s1
-    "portIn": 1, // for interface s1-eth1
-    "portOut": 2, // for interface s1-eth2
-    "hostOrigin": 1, // for host h1
-    "hostDestiny": 2 // for host h2
-}
-```
-
-Routing packets works in the following way:
-1. Select a switch `S.`
-2. Select origin host `U` and destiny host `V.`
-3. Select the in/out switch interfaces `S-I`, `S-O`.
-4. Route packets that arrive in `S` through `S-I` from `U` to `V`, to `S-O`.
-
-Our `StaticRouter` implementation uses the REST API to route the network based on hopping distance. There is an example of how to use it in `run_demo.py`.
-
-## Connect applications to the network
-
-Please check the Mininet [documention](https://github.com/mininet/mininet/wiki/Introduction-to-Mininet#running-programs-in-hosts) on how to connect applications to hosts in the network topology. If you want to connect a docker container, check containernet [documentation](https://containernet.github.io/#get-started).
 
 ## free5GC installation
 
