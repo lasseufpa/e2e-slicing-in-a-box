@@ -95,6 +95,12 @@ sudo docker exec server ffmpeg -re -stream_loop -1 -i file.mpg -c copy -f rtsp r
 ```
 Where file.mpg needs to be one of the two files available in the container.
 
+To receive the data use the command below in the UE:
+```console
+ffmpeg -i rtsp://10.100.200.20:8554/mystream -c copy output.mpg
+```
+This command will generate an mpg 2 file that can be opened using vlc, and it also provides information about the transmission
+
 ## Reference
 - https://github.com/free5gc/free5gc-compose
 - https://github.com/open5gs/nextepc/tree/master/docker
