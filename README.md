@@ -87,6 +87,14 @@ For the project to work, it was necessary to modify the "docker-compose" file an
 
 ## Media Server
 
+The streaming server is started along with the other services through a docker compose file. It consists of an ubuntu docker in its latest LTS version and the MediaMTX server, which is responsible for transmitting the video and audio files over the network, so this server is started after the container is created.
+
+The streaming server container also has two video files in mpeg 2 format for testing, namely the files: example720.mpg and example1080.mpg, the first being a video in 720p and the second in 1080p. To perform a video publication on the network, you can use an ffmpeg command inside the container, as described below:
+```console
+sudo docker exec server ffmpeg -re -stream_loop -1 -i file.mpg -c copy -f rtsp rtsp://10.100.200.20:8554/mystream
+```
+Where file.mpg needs to be one of the two files available in the container.
+
 ## Reference
 - https://github.com/free5gc/free5gc-compose
 - https://github.com/open5gs/nextepc/tree/master/docker
