@@ -1,0 +1,28 @@
+version: "3.3"
+services:
+  # client:
+  #   image: ubuntu
+  #   tty: true
+  #   stdin_open: true
+  #   command: sh -c "apt update && apt install ffmpeg -y"
+
+  server:
+    container_name: server
+    build: ../src/media_serve/.
+    tty: true
+    stdin_open: true
+    command: sh -c "cd mediamtx && ./mediamtx"
+    ports:
+      - "8554:8554"
+      - "8000:8000"
+      - "8001:8001"
+      - "1935:1935"
+      - "8888:8888"
+      - "8889:8889"
+    networks:
+      free5gc_net:
+        ipv4_address: 10.100.200.20
+
+networks:
+  free5gc_net:
+    external: true
