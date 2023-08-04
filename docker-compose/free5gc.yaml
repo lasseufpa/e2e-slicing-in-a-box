@@ -262,6 +262,7 @@ services:
 
 networks:
   privnet:
+    name: free5gc_net
     ipam:
       driver: default
       config:

@@ -12,4 +12,17 @@ services:
     tty: true
     stdin_open: true
     command: sh -c "cd mediamtx && ./mediamtx"
-    
+    ports:
+      - "8554:8554"
+      - "8000:8000"
+      - "8001:8001"
+      - "1935:1935"
+      - "8888:8888"
+      - "8889:8889"
+    networks:
+      free5gc_net:
+        ipv4_address: 10.100.200.20
+
+networks:
+  free5gc_net:
+    external: true
