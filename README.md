@@ -85,6 +85,8 @@ PS: For now, our routing module only supports a maximum of 255 hosts.
 ### Changing docker compose file
 For the project to work, it was necessary to modify the "docker-compose" file and the configuration folder present in the Free5GC repository by the [docker-compose](https://github.com/lasseufpa/e2e-slicing-in-a-box/blob/ns-free5gc/free5gc/docker-compose.yaml) and [config](https://github.com/lasseufpa/e2e-slicing-in-a-box/tree/ns-free5gc/free5gc/config) generated and made available by this repository  
 
+## Media Server
+
 ## Reference
 - https://github.com/free5gc/free5gc-compose
 - https://github.com/open5gs/nextepc/tree/master/docker
