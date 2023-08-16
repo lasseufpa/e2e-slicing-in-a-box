@@ -17,7 +17,7 @@ ip link del tap-right
 ip tuntap add tap-left mode tap
 ip tuntap add tap-right mode tap
 
-# Making both packet listeners, even if the mac address is not
+# Making both packet listeners, even if the mac dest address is not from the tap 
 ip link set tap-left promisc on
 ip link set tap-right promisc on
 
@@ -34,14 +34,12 @@ ip link set tap-left master br-left
 ip link set tap-right master br-right 
 
 # Creating 'bridge rules"
-echo "Defining Bridge Rules"
 sudo iptables -I FORWARD -m physdev --physdev-is-bridged -i br-left -p icmp -j ACCEPT
 sudo iptables -I FORWARD -m physdev --physdev-is-bridged -i br-right -p icmp -j ACCEPT
 sudo iptables -I FORWARD -m physdev --physdev-is-bridged -i br-left -p tcp -j ACCEPT
 sudo iptables -I FORWARD -m physdev --physdev-is-bridged -i br-right -p tcp -j ACCEPT
 sudo iptables -I FORWARD -m physdev --physdev-is-bridged -i br-left -p udp -j ACCEPT
 sudo iptables -I FORWARD -m physdev --physdev-is-bridged -i br-right -p udp -j ACCEPT
-echo "Defined"
 
 pid_left=$(docker inspect --format '{{ .State.Pid }}' ueransim-ue)
 pid_right=$(docker inspect --format '{{ .State.Pid }}' ueransim)

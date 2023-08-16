@@ -1,5 +1,6 @@
 #use with python3
 import shlex, subprocess
+import shutil
 import os
 import sys
 
@@ -23,7 +24,7 @@ os.chdir(setup_path)
 
 print("Updating apt")
 run_command('sudo apt update')
-
+'''
 print("Step 1. Install prerequisites")
 
 run_command('sudo  apt-get -y install ansible  git  aptitude  gcc  python3-dev  libffi-dev  libssl-dev  libxml2-dev  libxslt1-dev  zlib1g-dev  openjdk-8-jre  adduser  libfontconfig1  debian-keyring  debian-archive-keyring  apt-transport-https')
@@ -75,60 +76,27 @@ print("Step 4. Install NS3")
 
 print("Installing NS-3 dependencies")
 print("Building NS-38 and installing:")
-run_command("sudo apt-get install ccache gir1.2-goocanvas-2.0 python3-gi python3-gi-cairo python3-pygraphviz gir1.2-gtk-3.0 ipython3 python3-setuptools\
+run_command("sudo apt-get install ccache gir1.2-goocanvas-2.0 python3-gi clang python3-gi-cairo python3-pygraphviz gir1.2-gtk-3.0 ipython3 python3-setuptools\
  qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qt5-default openmpi-bin openmpi-common openmpi-doc libopenmpi-dev mercurial gdb valgrind\
  clang-format gsl-bin libgsl-dev libgslcblas0 tcpdump sqlite sqlite3 libsqlite3-dev cmake libc6-dev libc6-dev-i386 libclang-dev llvm-dev\
- automake libgtk-3-dev vtun lxc uml-utilities libxml2 libxml2-dev libboost-all-dev build-essential libtool autoconf unzip wget gcc-8 g++-8 -y ")
-run_command("sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8")
-run_command("sudo update-alternatives --config gcc")
+ automake libgtk-3-dev vtun lxc uml-utilities libxml2 libxml2-dev libboost-all-dev build-essential libtool autoconf unzip wget gcc-8 g++-8 g++-9 -y ")
+#run_command("sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8")
+#run_command("sudo update-alternatives --config gcc")
+'''
 
 os.chdir(setup_path)
 
-if os.path.exists("ns-allinone-3.38") == False:
-    run_command("wget https://www.nsnam.org/releases/ns-allinone-3.38.tar.bz2")
-    run_command("tar xfj ns-allinone-3.38.tar.bz2")
-    os.remove("ns-allinone-3.38.tar.bz2")
-    os.chdir("ns-allinone-3.38/ns-3.38")
+if os.path.exists("ns-3-dev") == False:
+    run_command("git clone https://gitlab.com/nsnam/ns-3-dev.git")
+    shutil.copy("../utils/channel/vs-e2e.cc", "ns-3-dev/scratch/")
+    shutil.copyfile("../utils/traffic/xr-traffic-mixer-helper.h", 
+                    "ns-3-dev/contrib/nr/utils/traffic-generators/helper/xr-traffic-mixer-helper.h")
+    shutil.copyfile("../utils/traffic/xr-traffic-mixer-helper.cc", 
+                    "ns-3-dev/contrib/nr/utils/traffic-generators/helper/xr-traffic-mixer-helper.cc")
+    os.chdir("ns-3-dev/contrib")
+    run_command("git clone https://gitlab.com/cttc-lena/nr.git")
+    os.chdir("..")
     run_command("./ns3 configure --enable-examples --enable-tests")
     run_command("./ns3 build")
 
-
-'''
-print("Step 5. Install SFLOW")
-
-if os.path.exists("sflow-rt") == False:
-    run_command('wget  https://inmon.com/products/sFlow-RT/sflow-rt.tar.gz')
-    run_command('tar  -xvzf  sflow-rt.tar.gz')
-    run_command('sflow-rt/get-app.sh sflow-rt mininet-dashboard')
-    os.chdir(setup_path)
-
-print("Step 6. Install GRAFANA")
-
-if os.path.exists("grafana_7.4.3_amd64.deb") == False:
-    run_command('wget  https://dl.grafana.com/oss/release/grafana_7.4.3_amd64.deb')
-    run_command('sudo dpkg  -i  grafana_7.4.3_amd64.deb')
-    run_command('sudo  systemctl  daemon-reload')
-
-print("Step 7. Run the GRAFANA Server")
-
-run_command('sudo  systemctl  daemon-reload')
-run_command('sudo  systemctl  start  grafana-server')
-run_command('sudo  systemctl  is-active  grafana-server')
-
-print("Step 8. Install Prometheus")
-
-if os.path.exists("prometheus-2.26.0.linux-amd64") == False:
-    run_command('wget  https://github.com/prometheus/prometheus/releases/download/v2.26.0/prometheus-2.26.0.linux-amd64.tar.gz')
-    run_command('tar  -xvzf  prometheus-2.26.0.linux-amd64.tar.gz')
-    os.chdir(setup_path)
-    run_command('sudo cp prometheus.yml tools/prometheus-2.26.0.linux-amd64/')
-'''
-
-'''
-print("Installing ns-3 ...")
-if os.path.exists("ns3") == False:
-    run_command("./../ns_install.sh")
-    run_command("rm -rf ns-allinone-3.38.tar.bz2")
 os.chdir(setup_path)
-print("installation completed !!!")
-'''
