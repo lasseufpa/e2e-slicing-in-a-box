@@ -83,7 +83,6 @@ addBackAddress (Ptr<Node> pgw, Ptr<NetDevice> ueNrNetDev, Ipv4Address addr)
   pgwApp->SetUeAddress (imsi, addr);
 }
 
-
 /**
  * \brief MacAdress() is a simple function to print all UE's and gNB MacAddress;
  * \param enbnetdev is a NetDeviceContainer for all the gNB's;
@@ -186,24 +185,21 @@ main(int argc, char* argv[])
     gnbContainer.Create(1);
     Names::Add("gNB",gnbContainer.Get(0));
     NodeContainer ueContainer;
-    ueContainer.Create(2);
+    ueContainer.Create(1);
     Names::Add("Ue0",ueContainer.Get(0));
-    Names::Add("Ue1",ueContainer.Get(1));
 
     MobilityHelper mobility;
     mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
     Ptr<ListPositionAllocator> positionAllocUe = CreateObject<ListPositionAllocator>();
     positionAllocUe->Add(Vector(0.0, 0.0, 10.0));
     positionAllocUe->Add(Vector(gnbUeDistance, 0.0, 1.5));
-    positionAllocUe->Add(Vector(0.0, gnbUeDistance, 1.5));
     mobility.SetPositionAllocator(positionAllocUe);
     mobility.Install(gnbContainer);
     mobility.Install(ueContainer.Get(0));
-    mobility.Install(ueContainer.Get(1));
 
     /* The default topology is the following:
      *
-     *                    UE (0.0, 20.0, 1.5)
+     *                    UE (20.0, 0.0, 1.5)
      *                   .
      *                  .
      *                 .
@@ -211,8 +207,8 @@ main(int argc, char* argv[])
      *              .
      *             . 
      *            .
-     *         gNB..........(20 m)..........UE
-     *   (0.0, 0.0, 10.0)               (20.0, 0.0, 1.5)
+     *         gNB
+     *   (0.0, 0.0, 10.0)               
      */
 
     /*
@@ -293,8 +289,6 @@ main(int argc, char* argv[])
 
     nrHelper->GetGnbPhy(enbNetDev.Get(0), 0)->SetAttribute("Numerology", UintegerValue(numerology));
     nrHelper->GetGnbPhy(enbNetDev.Get(0), 0)->SetAttribute("TxPower", DoubleValue(gnbTxPower));
-
-
     nrHelper->GetUePhy(ueNetDev.Get(0), 0)->SetAttribute("TxPower", DoubleValue(ueTxPower));
 
 
@@ -307,7 +301,6 @@ main(int argc, char* argv[])
     {
         DynamicCast<NrUeNetDevice>(*it)->UpdateConfig();
     }
-
     Ptr <Node> pgw = epcHelper->GetPgwNode();
     Names::Add("Packet Gateway",pgw);
     Ptr <Node> sgw = epcHelper->GetSgwNode();
@@ -328,8 +321,8 @@ main(int argc, char* argv[])
     
     NodeContainer ghostNodes;
     ghostNodes.Create(2);
-    Names::Add("ContainerUe1",ghostNodes.Get(0));
-    Names::Add("ContainerUe2",ghostNodes.Get(1));
+    Names::Add("ContainerUe",ghostNodes.Get(0));
+    Names::Add("ContainergNB",ghostNodes.Get(1));
     //Names::Add("ContainerPgw",ghostNodes.Get(2));
     //Names::Add("ContainerSgw",ghostNodes.Get(3));
     internetStackHelper.Install(ghostNodes);
@@ -340,7 +333,7 @@ main(int argc, char* argv[])
 
 
     NodeContainer RightNodes;
-    RightNodes.Add(ueContainer.Get(1));
+    RightNodes.Add(gnbContainer.Get(0));
     RightNodes.Add(ghostNodes.Get(1));
 
 
@@ -363,31 +356,45 @@ main(int argc, char* argv[])
     }
     
     Ptr <Ipv4StaticRouting> clientroute = ipv4RoutingHelper.GetStaticRouting(ghostNodes.Get(0)->GetObject<Ipv4>());
-    clientroute->AddNetworkRouteTo(Ipv4Address("7.0.0.0"),Ipv4Mask("255.0.0.0"),Ipv4Address("7.0.0.2"),1);
+    clientroute->AddNetworkRouteTo(Ipv4Address("10.0.0.0"),Ipv4Mask("255.0.0.0"),Ipv4Address("10.0.0.6"),1);
+    clientroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),1);
 
     Ptr <Ipv4StaticRouting> ueroute = ipv4RoutingHelper.GetStaticRouting(ueContainer.Get(0)->GetObject<Ipv4>());
-    ueroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),Ipv4Address("10.1.2.1"),1);
+    ueroute->AddNetworkRouteTo(Ipv4Address("10.0.0.0"),Ipv4Mask("255.0.0.0"),Ipv4Address("7.0.0.1"),1);
     ueroute->AddNetworkRouteTo(Ipv4Address("10.1.1.0"),Ipv4Mask("255.255.255.0"),2);
+    ueroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),1);
 
-    Ptr <Ipv4StaticRouting> server_route = ipv4RoutingHelper.GetStaticRouting(ghostNodes.Get(1)->GetObject<Ipv4>());
-    server_route->AddNetworkRouteTo(Ipv4Address("7.0.0.0"),Ipv4Mask("255.0.0.0"),Ipv4Address("7.0.0.3"),1);
 
-    Ptr <Ipv4StaticRouting> ueroute2 = ipv4RoutingHelper.GetStaticRouting(ueContainer.Get(1)->GetObject<Ipv4>());
-    ueroute2->AddNetworkRouteTo(Ipv4Address("10.1.1.0"),Ipv4Mask("255.255.255.0"),Ipv4Address("10.1.1.1"),1);
-    ueroute2->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),2);
+    Ptr <Ipv4StaticRouting> gnbroute = ipv4RoutingHelper.GetStaticRouting(gnbContainer.Get(0)->GetObject<Ipv4>());
+    gnbroute->AddNetworkRouteTo(Ipv4Address("7.0.0.0"),Ipv4Mask("255.0.0.0"),Ipv4Address("7.0.0.1"),1);
+    gnbroute->AddNetworkRouteTo(Ipv4Address("10.1.1.0"),Ipv4Mask("255.255.255.0"),1);
+    gnbroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),2);
+
+    Ptr <Ipv4StaticRouting> bs_container_route = ipv4RoutingHelper.GetStaticRouting(ghostNodes.Get(1)->GetObject<Ipv4>());
+    bs_container_route->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),2);
+    bs_container_route->AddNetworkRouteTo(Ipv4Address("7.0.0.0"),Ipv4Mask("255.0.0.0"),1);
 
     Ptr <Ipv4StaticRouting> pgwroute = ipv4RoutingHelper.GetStaticRouting(pgw->GetObject<Ipv4>());
-    pgwroute->AddNetworkRouteTo(Ipv4Address("10.1.1.0"),Ipv4Mask("255.255.255.0"),Ipv4Address("10.1.1.1"),1);
-    pgwroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),Ipv4Address("10.1.2.1"),1);
-    addBackAddress(pgw,ueNetDev.Get(0),Ipv4Address("10.1.1.2"));
-    addBackAddress(pgw,ueNetDev.Get(1),Ipv4Address("10.1.2.2"));
+    pgwroute->AddNetworkRouteTo(Ipv4Address("10.0.0.0"),Ipv4Mask("255.0.0.0"),2);
+    pgwroute->AddNetworkRouteTo(Ipv4Address("10.1.1.0"),Ipv4Mask("255.255.255.0"),1);
+    pgwroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),2);
 
+
+    Ptr<Ipv4StaticRouting> sgwroute = ipv4RoutingHelper.GetStaticRouting(sgw->GetObject<Ipv4>());
+    sgwroute->AddNetworkRouteTo(Ipv4Address("10.1.1.0"),Ipv4Mask("255.255.255.0"),1);
+    sgwroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),3);
+
+    
+
+
+
+    addBackAddress(pgw,ueNetDev.Get(0),Ipv4Address("10.1.1.2"));
 
     TapBridgeHelper tapBridge;
     tapBridge.SetAttribute("Mode",StringValue("UseBridge"));
-    tapBridge.SetAttribute("DeviceName", StringValue("tap_server"));
+    tapBridge.SetAttribute("DeviceName", StringValue("tap-left"));
     tapBridge.Install(LeftNodes.Get(1), deviceLeft.Get(1));
-    tapBridge.SetAttribute("DeviceName", StringValue("tap_client"));
+    tapBridge.SetAttribute("DeviceName", StringValue("tap-right"));
     tapBridge.Install(RightNodes.Get(1), deviceRight.Get(1));
 
 

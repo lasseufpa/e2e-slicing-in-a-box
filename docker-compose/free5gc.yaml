@@ -222,6 +222,7 @@ services:
   ueransim:
     container_name: ueransim
     image: free5gc/ueransim:latest
+    privileged: true
     #command: ./nr-gnb -c ./config/gnbcfg.yaml
     entrypoint: tail -f /dev/null
     volumes:
@@ -243,6 +244,7 @@ services:
   ueransim-ue:
     container_name: ueransim-ue
     image: free5gc/ueransim:latest
+    privileged: true
     #command: ./nr-ue -c ./config/uecfg.yaml -n 1
     entrypoint: tail -f /dev/null
     volumes:

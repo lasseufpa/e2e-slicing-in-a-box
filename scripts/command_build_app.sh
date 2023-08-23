@@ -50,7 +50,7 @@ ip link add eth_gNB type veth peer name eth
 ip link set eth_gNB master br-right
 ip link set eth_gNB up
 ip link set eth netns $pid_right
-docker exec $gNB ip addr add 10.1.1.1/24 dev eth 
+docker exec $gNB ip addr add 10.1.2.2/24 dev eth 
 docker exec $gNB ip link set eth up
 #docker exec -d $gNB ./nr-gnb -c ./config/gnbcfg.yaml > /dev/null &
 #sleep 5
