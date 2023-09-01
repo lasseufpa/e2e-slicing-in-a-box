@@ -5,6 +5,7 @@ info:
 configuration:
   amfName: AMF # the name of this AMF
   ngapIpList:  # the IP list of N2 interfaces on this AMF
+    #- 10.100.200.100
     - amf.free5gc.org
   ngapPort: 38412 # the SCTP port listened by NGAP
   sbi: # Service-based interface information

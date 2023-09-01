@@ -358,17 +358,20 @@ main(int argc, char* argv[])
     Ptr <Ipv4StaticRouting> clientroute = ipv4RoutingHelper.GetStaticRouting(ghostNodes.Get(0)->GetObject<Ipv4>());
     clientroute->AddNetworkRouteTo(Ipv4Address("10.0.0.0"),Ipv4Mask("255.0.0.0"),Ipv4Address("10.0.0.6"),1);
     clientroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),1);
+    clientroute->AddNetworkRouteTo(Ipv4Address("10.100.200.0"),Ipv4Mask("/24"),1);
 
     Ptr <Ipv4StaticRouting> ueroute = ipv4RoutingHelper.GetStaticRouting(ueContainer.Get(0)->GetObject<Ipv4>());
     ueroute->AddNetworkRouteTo(Ipv4Address("10.0.0.0"),Ipv4Mask("255.0.0.0"),Ipv4Address("7.0.0.1"),1);
     ueroute->AddNetworkRouteTo(Ipv4Address("10.1.1.0"),Ipv4Mask("255.255.255.0"),2);
     ueroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),1);
+    ueroute->AddNetworkRouteTo(Ipv4Address("10.100.200.0"),Ipv4Mask("/24"),1);
 
 
     Ptr <Ipv4StaticRouting> gnbroute = ipv4RoutingHelper.GetStaticRouting(gnbContainer.Get(0)->GetObject<Ipv4>());
     gnbroute->AddNetworkRouteTo(Ipv4Address("7.0.0.0"),Ipv4Mask("255.0.0.0"),Ipv4Address("7.0.0.1"),1);
     gnbroute->AddNetworkRouteTo(Ipv4Address("10.1.1.0"),Ipv4Mask("255.255.255.0"),1);
     gnbroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),2);
+    gnbroute->AddNetworkRouteTo(Ipv4Address("10.100.200.0"),Ipv4Mask("/24"),2);
 
     Ptr <Ipv4StaticRouting> bs_container_route = ipv4RoutingHelper.GetStaticRouting(ghostNodes.Get(1)->GetObject<Ipv4>());
     bs_container_route->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),2);
@@ -378,12 +381,12 @@ main(int argc, char* argv[])
     pgwroute->AddNetworkRouteTo(Ipv4Address("10.0.0.0"),Ipv4Mask("255.0.0.0"),2);
     pgwroute->AddNetworkRouteTo(Ipv4Address("10.1.1.0"),Ipv4Mask("255.255.255.0"),1);
     pgwroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),2);
-
+    pgwroute->AddNetworkRouteTo(Ipv4Address("10.100.200.0"),Ipv4Mask("/24"),2);
 
     Ptr<Ipv4StaticRouting> sgwroute = ipv4RoutingHelper.GetStaticRouting(sgw->GetObject<Ipv4>());
     sgwroute->AddNetworkRouteTo(Ipv4Address("10.1.1.0"),Ipv4Mask("255.255.255.0"),1);
     sgwroute->AddNetworkRouteTo(Ipv4Address("10.1.2.0"),Ipv4Mask("255.255.255.0"),3);
-
+    sgwroute->AddNetworkRouteTo(Ipv4Address("10.100.200.0"),Ipv4Mask("255.255.255.0"),3);
     
 
 
@@ -392,9 +395,9 @@ main(int argc, char* argv[])
 
     TapBridgeHelper tapBridge;
     tapBridge.SetAttribute("Mode",StringValue("UseBridge"));
-    tapBridge.SetAttribute("DeviceName", StringValue("tap-left"));
+    tapBridge.SetAttribute("DeviceName", StringValue("tap-ue"));
     tapBridge.Install(LeftNodes.Get(1), deviceLeft.Get(1));
-    tapBridge.SetAttribute("DeviceName", StringValue("tap-right"));
+    tapBridge.SetAttribute("DeviceName", StringValue("tap-gnb"));
     tapBridge.Install(RightNodes.Get(1), deviceRight.Get(1));
 
 
@@ -403,7 +406,7 @@ main(int argc, char* argv[])
     Simulator::Schedule(MilliSeconds(0.5), &ipv4, allnodes);
     Simulator::Schedule(MilliSeconds(1),&MacAddress, enbNetDev, ueNetDev);
     Simulator::Schedule(MilliSeconds(1.2),&PrintRoutingTable,allnodes);
-    Simulator::Stop(Seconds(360));
+    Simulator::Stop(Seconds(600000));
     Simulator::Run();
     Simulator::Destroy();
 

@@ -38,7 +38,7 @@ ONOS_CMD_FILE="controller/onoscmd"
 DOCKER_RM=$(docker ps -a --format {{.Names}})
 if [ ! -z "$DOCKER_RM" ]; then docker rm $DOCKER_RM ; fi
 
-sudo ovs-docker del-port s1 eth10 ueransim
+#sudo ovs-docker del-port s1 eth10 ueransim
 
 # following commands will be executed first, in each window
 # pre_input=""
@@ -49,14 +49,20 @@ sudo ovs-docker del-port s1 eth10 ueransim
 input=(
   'onos' "sudo docker compose -f docker-compose/onos.yaml up
   "
-  'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 60 ; \
+  'onos-cli'  "echo 'Waiting for ONOS to start' ; sleep 90 ; \
                while IFS="" read -r p ; do ${ONOS_CMD} \$p ; done < ${ONOS_CMD_FILE} ; ${ONOS_SSH}
   "
   'free5gc' "docker compose -f docker-compose/free5gc.yaml up
   "
   'containernet' "sudo mn -c ; sudo python3 network.py
   "
-  'scenario' "echo 'Waiting for all software to start' ; sleep 60 ; cd scripts ; su \$SUDO_USER
+  'server' "docker compose -f docker-compose/media_server.yml up
+  "
+  'ns-3' "sleep 60;  sudo ./scripts/command_build_app.sh; sudo -u $SUDO_USER ./tools/ns-3-dev/ns3 run vs-e2e
+  "
+  'user' "sleep 60; docker exec -it ueransim-ue bash
+  "
+  'scenario' "echo 'Waiting for all software to start' ; sleep 120 ; cd scripts ; su \$SUDO_USER
   "
 )
 

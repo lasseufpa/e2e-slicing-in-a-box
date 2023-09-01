@@ -253,11 +253,6 @@ services:
       - NET_ADMIN
     devices:
       - "/dev/net/tun"
-    networks:
-      privnet:
-        ipv4_address: 10.100.200.15
-        aliases:
-          - ue.free5gc.org
     depends_on:
       - free5gc-amf
       #- free5gc-upf
