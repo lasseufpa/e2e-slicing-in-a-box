@@ -60,6 +60,8 @@ input=(
   "
   'ns-3' "sleep 60;  sudo ./scripts/command_build_app.sh; sudo -u $SUDO_USER ./tools/ns-3-dev/ns3 run vs-e2e
   "
+  'Connect' "sleep 60; sudo ./scripts/connect.sh
+  "
   'user' "sleep 60; docker exec -it ueransim-ue bash
   "
   'scenario' "echo 'Waiting for all software to start' ; sleep 120 ; cd scripts ; su \$SUDO_USER
