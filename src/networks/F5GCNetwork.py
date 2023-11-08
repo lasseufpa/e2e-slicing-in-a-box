@@ -10,8 +10,8 @@ class F5GCNetwork():
 
     def start(self):
         if self.net == None:
-            self.net = Mininet(topo=self.topo, controller=None, link=TCLink, autoSetMacs=True, autoStaticArp=True)
-            self.net.addController('c0',controller=RemoteController, ip='127.0.0.1', port=6653)
+            self.net = Mininet(topo=self.topo, link=TCLink, autoSetMacs=True, autoStaticArp=True)
+            #self.net.addController('c0',controller=RemoteController, ip='127.0.0.1', port=8101)
             self.net.start()
 
     def stop(self):
