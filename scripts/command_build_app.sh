@@ -63,3 +63,12 @@ docker exec $ue ip link set dev eth address "52:9c:58:1e:ad:ec"
 ip link set br-ue up
 ip link set br-gnb up
 
+# Routing Table
+sudo docker exec -d $gNB ip route del default
+sudo docker exec -d $gNB ip route add 10.1.1.0/24 via 10.1.2.1 dev eth
+sudo docker exec -d $gNB ip route del 10.100.200.0/24 dev eth0
+sudo docker exec -d $gNB ip route del 10.100.200.0/24 dev eth10 proto kernel scope link src 10.100.200.100 
+sudo docker exec -d $gNB ip route add 10.100.200.0/24 dev eth10 
+sudo docker exec -d $ue ip route add 10.100.200.100/24 via 10.1.1.1 dev eth
+sudo docker exec -d $ue ip route add 10.1.2.0/24 via 10.1.1.1 dev eth
+
