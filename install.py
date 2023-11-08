@@ -86,11 +86,14 @@ run_command("sudo update-alternatives --config gcc")
 os.chdir(setup_path)
 
 if os.path.exists("ns-3-dev") == False:
-    run_command("git clone https://gitlab.com/nsnam/ns-3-dev.git")
+    run_command("wget https://gitlab.com/nsnam/ns-3-dev/-/archive/ns-3.38/ns-3-dev-ns-3.38.zip")
+    run_command("unzip ns-3-dev-ns-3.38.zip")
+    os.remove("ns-3-dev-ns-3.38.zip")
+    os.rename("ns-3-dev-ns-3.38","ns-3-dev")
     shutil.copy("../utils/channel/vs-e2e.cc", "ns-3-dev/scratch/")
     os.chdir("ns-3-dev/contrib")
     #os.remove("../src/wifi/test/wifi-emlsr-test.cc")
-    run_command("git clone https://gitlab.com/cttc-lena/nr.git")
+    run_command("git clone --single-branch --branch 5g-lena-v2.4.y https://gitlab.com/cttc-lena/nr.git nr")
     shutil.copyfile("../../../utils/traffic/xr-traffic-mixer-helper.h", 
                     "nr/utils/traffic-generators/helper/xr-traffic-mixer-helper.h")
     shutil.copyfile("../../../utils/traffic/xr-traffic-mixer-helper.cc", 
